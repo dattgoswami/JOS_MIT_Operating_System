@@ -26,6 +26,7 @@ struct Command {
 static struct Command commands[] = {
 	{ "help", "Display this list of commands", mon_help },
 	{ "kerninfo", "Display information about the kernel", mon_kerninfo },
+	{ "backtrace" , "Display backtrace", mon_backtrace},
 };
 #define NCOMMANDS (sizeof(commands)/sizeof(commands[0]))
 
@@ -57,9 +58,31 @@ mon_kerninfo(int argc, char **argv, struct Trapframe *tf)
 	return 0;
 }
 
+//#define read_rip(var) __asm __volatile("leaq (%%rip), %0" : "=r" (var)::"cc","memory")
+
 int
 mon_backtrace(int argc, char **argv, struct Trapframe *tf)
 {
+	cprintf("Stack backtrace:");
+        uint64_t *rbp,rip;
+        struct Ripdebuginfo info;
+        int i;
+	uint32_t *rbpa;
+        __asm __volatile("movq %%rbp,%0" : "=r" (rbp)::"cc","memory");
+        read_rip(rip);
+        while(rbp != 0) {
+                cprintf("\n  rbp %016x  rip %016x\n",rbp, rip);
+                debuginfo_rip( rip, &info);
+                cprintf("     %s:%d: %s+%016llx  args:%d  ", info.rip_file, info.rip_line,info.rip_fn_name , info.rip_fn_addr,info.rip_fn_narg);
+                for(i=0;i<info.rip_fn_narg;i++){
+//                cprintf("\n%016x\n",rbp);
+			rbpa = (uint32_t *)rbp;        
+			cprintf("%016x ",rbpa[-1-i]);
+                }
+                rip = (uint64_t )*(rbp+1);
+                rbp = (uint64_t *)*rbp;
+        }
+         cprintf("\n");
 	// Your code here.
 	return 0;
 }
