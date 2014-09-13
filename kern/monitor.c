@@ -75,10 +75,7 @@ mon_backtrace(int argc, char **argv, struct Trapframe *tf)
                 debuginfo_rip( rip, &info);
                 cprintf("     %s:%d: %s+%016llx  args:%d  ", info.rip_file, info.rip_line,info.rip_fn_name , info.rip_fn_addr,info.rip_fn_narg);
                 for(i=0;i<info.rip_fn_narg;i++){
-<<<<<<< HEAD
-=======
 //                cprintf("\n%016x\n",rbp);
->>>>>>> e405146929630fbe0e4c86924d1adc91bac3f5f4
 			rbpa = (uint32_t *)rbp;        
 			cprintf("%016x ",rbpa[-1-i]);
                 }
@@ -86,10 +83,7 @@ mon_backtrace(int argc, char **argv, struct Trapframe *tf)
                 rbp = (uint64_t *)*rbp;
         }
          cprintf("\n");
-<<<<<<< HEAD
-=======
 	// Your code here.
->>>>>>> e405146929630fbe0e4c86924d1adc91bac3f5f4
 	return 0;
 }
 
