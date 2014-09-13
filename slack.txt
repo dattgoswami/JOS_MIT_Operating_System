@@ -1,0 +1,11 @@
+<<<<<<< HEAD
+Late Hours Taken for Lab 1: 23 hrs 
+=======
+Late Hours Taken for Lab 1: 0 hrs 
+>>>>>>> e405146929630fbe0e4c86924d1adc91bac3f5f4
+Late Hours Taken for Lab 2: 
+Late Hours Taken for Lab 3: 
+Late Hours Taken for Lab 4: 
+Late Hours Taken for Lab 5: 
+Late Hours Taken for Lab 6: 
+Late Hours Taken for Lab 7: 
